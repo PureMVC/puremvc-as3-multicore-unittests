@@ -47,7 +47,7 @@ package org.puremvc.as3.multicore.patterns.facade
  			ts.addTest( new FacadeTest( "testHasProxy" ) );
  			ts.addTest( new FacadeTest( "testHasMediator" ) );
  			ts.addTest( new FacadeTest( "testHasCommand" ) );
-   			
+ 			ts.addTest( new FacadeTest( "testHasCoreAndRemoveCore" ) );
    			return ts;
    		}
   		
@@ -270,6 +270,31 @@ package org.puremvc.as3.multicore.patterns.facade
    			// test that hasCommand returns false for hasCommandTest notifications 
    			assertTrue( "Expecting facade.hasCommand('facadeHasCommandTest') == false", facade.hasCommand('facadeHasCommandTest') == false );
    			
+   		}
+
+  		/**
+  		 * Tests the hasCore and removeCore methods
+  		 */
+  		public function testHasCoreAndRemoveCore():void {
+  			
+   			// assert that the Facade.hasCore method returns false first
+   			assertTrue( "Expecting facade.hasCore('FacadeTestKey11') == false", 
+   						Facade.hasCore('FacadeTestKey11') == false);
+			
+   			// register a Core
+			var facade:IFacade = Facade.getInstance('FacadeTestKey11');
+						
+   			// assert that the Facade.hasCore method returns true now that a Core is registered
+   			assertTrue( "Expecting facade.hasCore('FacadeTestKey11') == true", 
+   						Facade.hasCore('FacadeTestKey11') == true);
+			
+   			// remove the Core
+			Facade.removeCore('FacadeTestKey11');
+			
+   			// assert that the Facade.hasCore method returns false now that the core has been removed.
+   			assertTrue( "Expecting facade.hasCore('FacadeTestKey11') == false", 
+   						Facade.hasCore('FacadeTestKey11') == false);
+			
    		}
 
   	}
